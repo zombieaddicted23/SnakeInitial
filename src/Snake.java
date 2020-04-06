@@ -1,5 +1,7 @@
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -20,7 +22,10 @@ public class Snake {
     
     
     public Snake(int row, int col, int size) { // Initial position of the head of the snake and number of inital nodes
-        // Finish this method
+        body = new ArrayList<>();
+        for(int i=1; i <= size; i++) {
+            body.add(new Node((row), (col) - i));
+        }
     }
     
     public boolean canMove(int row, int col) {
@@ -29,7 +34,15 @@ public class Snake {
     }
     
     public void paint(Graphics g, int squareWidth, int squareHeight) {
-        // Finish this method. Call Util.drawSquare()
+        boolean headColor = false;
+        for (Node node: body) {
+            if(!headColor) {
+                Util.drawSquare(g, squareWidth, squareHeight, node.getCol(),node.getRow() , Color.green);
+                headColor = true;
+            } else {
+                 Util.drawSquare(g, squareWidth, squareHeight, node.getCol(),node.getRow() , Color.red);
+            }
+        }
     }
     
     public void move() {
