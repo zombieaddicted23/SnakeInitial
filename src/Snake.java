@@ -1,6 +1,7 @@
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,18 +38,54 @@ public class Snake {
         boolean headColor = false;
         for (Node node: body) {
             if(!headColor) {
-                Util.drawSquare(g, squareWidth, squareHeight, node.getCol(),node.getRow() , Color.green);
+                Util.drawSquare((Graphics2D) g, squareWidth, squareHeight, node.getCol(),node.getRow() , Color.green);
                 headColor = true;
             } else {
-                 Util.drawSquare(g, squareWidth, squareHeight, node.getCol(),node.getRow() , Color.red);
+                 Util.drawSquare((Graphics2D) g, squareWidth, squareHeight, node.getCol(),node.getRow() , Color.red);
             }
         }
     }
-    
+    //Add  a canMove.There we will input the coords(row+1 or similar )if is true:call the method 
     public void move() {
-        // Finish this method
+        int row = body.get(0).getRow();
+        int col = body.get(0).getCol();
+        switch(direction) {
+            case UP:
+                //here if(canMove(row-1))
+                moveUp();
+                break;
+
+            case DOWN:
+                moveDown();
+                break;
+           case LEFT:
+                moveLeft();
+                break;
+ 
+           case RIGHT:
+                moveRight();
+                break;
+
+        }
+       
     }
-    
+    //remove this methods and create a method that move using the cords easyest ,and clean
+    public void moveDown() {
+        body.add(0, new Node(body.get(0).getRow() + 1, body.get(0).getCol()));
+        body.remove(body.size() - 1);
+    }
+    public void moveRight() {
+        body.add(0, new Node(body.get(0).getRow(), body.get(0).getCol() + 1));
+        body.remove(body.size() - 1);
+    }
+    public void moveUp() {
+        body.add(0, new Node(body.get(0).getRow() - 1, body.get(0).getCol()));
+        body.remove(body.size() - 1);
+    }
+     public void moveLeft() {
+        body.add(0, new Node(body.get(0).getRow(), body.get(0).getCol() - 1));
+        body.remove(body.size() - 1);
+    }
     
     
 }
