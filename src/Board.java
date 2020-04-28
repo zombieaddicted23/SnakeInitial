@@ -1,5 +1,8 @@
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Timer;
 
 /*
@@ -22,6 +25,7 @@ public class Board extends javax.swing.JPanel {
     private Timer snakeTimer;
     private Timer specialFoodTimer;
     private int DeltaTime;
+     private MyKeyAdapter keyAdapter;
 
     /**
      * Creates new form Board
@@ -50,8 +54,41 @@ public class Board extends javax.swing.JPanel {
     
     @Override 
     protected void paintComponent(Graphics g)  {
-        // Finish this method
-        // Paint the Snake and the food here
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        
+    }
+     class MyKeyAdapter extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            switch(e.getKeyCode()) {
+               
+                
+                case KeyEvent.VK_LEFT:
+                    if /*(canMove(Directions.LEFT) &&*/(snake.getDirection() != Direction.RIGHT) {
+                        snake.setDirection(Direction.LEFT);     
+                    }
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    if /*(canMove(Directions.LEFT) &&*/ (snake.getDirection() != Direction.LEFT) {
+                        snake.setDirection(Direction.RIGHT);
+                    }
+                    break;
+                case KeyEvent.VK_UP:
+                    if /*(canMove(Directions.LEFT) &&*/ (snake.getDirection() != Direction.DOWN) {
+                        snake.setDirection(Direction.UP);
+                    }
+                    break;
+                case KeyEvent.VK_DOWN:
+                    if /*(canMove(Directions.LEFT) &&*/ (snake.getDirection() != Direction.UP) {
+                        snake.setDirection(Direction.DOWN);
+                    }
+                    break;                
+            }
+            repaint();
+            
+        }
+        
     }
 
     /**

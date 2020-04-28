@@ -33,6 +33,12 @@ public class Snake {
         // Finish this method
         return true;
     }
+     public Direction getDirection() {
+        return direction;
+    }
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }    
     
     public void paint(Graphics g, int squareWidth, int squareHeight) {
         boolean headColor = false;
