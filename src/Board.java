@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
@@ -51,12 +52,28 @@ public class Board extends javax.swing.JPanel {
     public void gameOver() {
         // Finish this method
     }
-    
     @Override 
     protected void paintComponent(Graphics g)  {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        
+         if (snake != null) {
+            snake.paint(g2d, getSquareWidth(), getSquareHeight());
+        }
+           
+    }
+    public void paintBoard(Graphics2D g2d) {
+        for (int row = 0; row < Util.numRows; row++) {
+            for (int col = 0; col <  Util.numCols; col++) {
+                Util.drawSquare(g2d, getSquareWidth(), getSquareHeight(), col, row, Color.GRAY);
+            }
+        }
+    }
+    public int getSquareWidth() {
+        return getWidth() / Util.numCols;        
+    }
+    
+    public int getSquareHeight() {
+        return getHeight() / Util.numRows;
     }
      class MyKeyAdapter extends KeyAdapter {
         @Override

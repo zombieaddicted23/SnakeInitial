@@ -13,6 +13,10 @@ import java.awt.*;
  */
 public class Util {
     
+    public static int numRows = 30;
+    public static int numCols = 40;
+    public static int score = 0;
+    
      public static void drawSquare(Graphics2D g, int squareWidth, 
                                 int squareHeight, int row, int col, Color color) {
         int x = col * squareWidth;
