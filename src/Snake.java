@@ -29,8 +29,8 @@ public class Snake {
         }
     }
     public boolean eat(Food food) {
-        if (body.get(0).getRow() == food.getRow() &&
-             body.get(0).getCol() == food.getCol() ) {
+        if (body.get(0).getRow() == food.getPosition().getRow() &&
+             body.get(0).getCol() == food.getPosition().getCol() ) {
             return true;
         } else {
             return false;
