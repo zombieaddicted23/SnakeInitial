@@ -16,11 +16,9 @@ import javax.swing.Timer;
  *
  * @author victoralonso
  */
-public class Board extends javax.swing.JPanel {
+public class Board extends JPanel {
 
-    static void drawSquare(Graphics g, int squareWidth, int squareHeight, int row, int col, Color red) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
     
     
     
