@@ -28,11 +28,47 @@ public class Snake {
             body.add(new Node((row), (col) - i));
         }
     }
+    public boolean eat(Food food) {
+        if (body.get(0).getRow() == food.getRow() &&
+             body.get(0).getCol() == food.getCol() ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     
     public boolean canMove(int row, int col) {
-        // Finish this method
-        return true;
+       if (row < 0 || col < 0 || 
+                row >= Util.getRows() || col >= Util.getCols()) {            
+            return false;
+        } else { 
+            if (collidesWithItself()) {
+                return false;
+            }  else {
+                moveTo(row, col);
+                return true;
+            }
+        }
     }
+     public boolean isOnSnake(int row, int col) {
+        for (Node node : body) {
+            if (row == node.getRow() && col == node.getCol()) {
+                return true;
+            }
+        }
+        return false;
+    }
+     
+     private void moveTo(int row, int col) {
+        body.add(0, new Node(row, col));
+        if (remainingNodesToCreate == 0) {
+            body.remove(body.size() - 1);
+        } else {
+            remainingNodesToCreate --;
+        }
+    }
+     
      public Direction getDirection() {
         return direction;
     }
@@ -51,47 +87,43 @@ public class Snake {
             }
         }
     }
-    //Add  a canMove.There we will input the coords(row+1 or similar )if is true:call the method 
+    
     public void move() {
         int row = body.get(0).getRow();
         int col = body.get(0).getCol();
         switch(direction) {
             case UP:
-                //here if(canMove(row-1))
-                moveUp();
+                
+                canMove(body.get(0).getRow() - 1, body.get(0).getCol());
                 break;
 
             case DOWN:
-                moveDown();
+               canMove(body.get(0).getRow() + 1, body.get(0).getCol());
                 break;
            case LEFT:
-                moveLeft();
+               canMove(body.get(0).getRow(), body.get(0).getCol() - 1);
                 break;
  
            case RIGHT:
-                moveRight();
+               canMove(body.get(0).getRow(), body.get(0).getCol() + 1);
                 break;
 
         }
        
     }
-    //remove this methods and create a method that move using the cords easyest ,and clean
-    public void moveDown() {
-        body.add(0, new Node(body.get(0).getRow() + 1, body.get(0).getCol()));
-        body.remove(body.size() - 1);
+    private boolean collidesWithItself() {
+        int row = body.get(0).getRow();
+        int col = body.get(0).getCol();
+        for (int i = 1; i < body.size() - 1; i++) {
+            if (row == body.get(i).getRow() && 
+                col == body.get(i).getCol()) {
+                return true;
+            }
+        }
+        return false;
     }
-    public void moveRight() {
-        body.add(0, new Node(body.get(0).getRow(), body.get(0).getCol() + 1));
-        body.remove(body.size() - 1);
-    }
-    public void moveUp() {
-        body.add(0, new Node(body.get(0).getRow() - 1, body.get(0).getCol()));
-        body.remove(body.size() - 1);
-    }
-     public void moveLeft() {
-        body.add(0, new Node(body.get(0).getRow(), body.get(0).getCol() - 1));
-        body.remove(body.size() - 1);
-    }
+    
+   
     
     
 }

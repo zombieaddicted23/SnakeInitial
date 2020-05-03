@@ -17,6 +17,18 @@ public class Util {
     public static int numCols = 40;
     public static int score = 0;
     
+    public static void setRows(int rows){
+        numRows=rows;
+    }
+    public static void setCols(int cols){
+        numCols=cols;
+    }
+    public static int getRows(){
+        return numRows;
+    }
+    public static int getCols(){
+        return numCols;
+    }
      public static void drawSquare(Graphics2D g, int squareWidth, 
                                 int squareHeight, int row, int col, Color color) {
         int x = col * squareWidth;

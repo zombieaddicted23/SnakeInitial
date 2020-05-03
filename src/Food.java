@@ -1,5 +1,7 @@
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,18 +13,29 @@ import java.awt.Graphics;
  *
  * @author victoralonso
  */
-public class Food {
+public class Food extends Node{
     private Node position;
     private boolean isSpecial;
     
     public Food(Snake snake) { 
-        // We pass Snake to the constructor because if the randomnly generated food
-        // falls on the Snake you have to create another position for the food
+        int specialProb=(int) (Math.random() * 5);
+        int row = (int) (Math.random() * Util.getRows());
+        int col = (int) (Math.random() * Util.getCols());
+        
+        while(snake.isOnSnake(row, col)){
+            row = (int) (Math.random() * Util.getRows());
+            col = (int) (Math.random() * Util.getCols());
+        } 
+        if (specialProb==2){
+            isSpecial=true;
+        }
+        position.setRow(row);
+        position.setCol(col);
         
     }
     
-    public void paint(Graphics g, int squareWidth, int squareHeight) {
-        // Finish this method. Call Util.drawSquare()
+    public void paint(Graphics2D g, int squareWidth, int squareHeight) {
+       Util.drawSquare(g, squareWidth, squareHeight, position.getRow(), position.getCol(), Color.red);
     }
     
     // Create all the methods you need here

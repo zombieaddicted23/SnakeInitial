@@ -1,10 +1,10 @@
-
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Timer;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,9 +17,13 @@ import java.util.Timer;
  * @author victoralonso
  */
 public class Board extends javax.swing.JPanel {
+
+    static void drawSquare(Graphics g, int squareWidth, int squareHeight, int row, int col, Color red) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
-    private int numRows;
-    private int numCols;
+    
+    
     private Snake snake;
     private Food food;
     private Food specialFood;
@@ -32,20 +36,35 @@ public class Board extends javax.swing.JPanel {
      * Creates new form Board
      */
     public Board() {
-        initComponents();
-        myInit();
+        super();
+        keyAdapter = new MyKeyAdapter();
+        addKeyListener(keyAdapter);
+        setFocusable(true);
+         myInit();
+        snakeTimer = new javax.swing.Timer(200, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                 tick();
+            }
+        }
+       );
     }
-    
+    public void tick(){
+        
+    }
     private void myInit() {
-        // Finish this method
+        snakeTimer.start();
+        snake = new Snake(getSquareHeight()/2, getSquareWidth()/2, 4);
+        food = new Food(snake);
     }
-    
+    //To modify or creatre a diferent board
     public Board(int numRows, int numCols) {
-        // Finish this method
+        Util.setRows(numRows);
+        Util.setCols(numCols);   
     }
     
     public boolean colideFood() {
-        // Finish this method
+      
         return false;
     }
     
@@ -62,18 +81,18 @@ public class Board extends javax.swing.JPanel {
            
     }
     public void paintBoard(Graphics2D g2d) {
-        for (int row = 0; row < Util.numRows; row++) {
-            for (int col = 0; col <  Util.numCols; col++) {
+        for (int row = 0; row < Util.getRows(); row++) {
+            for (int col = 0; col <  Util.getCols(); col++) {
                 Util.drawSquare(g2d, getSquareWidth(), getSquareHeight(), col, row, Color.GRAY);
             }
         }
     }
     public int getSquareWidth() {
-        return getWidth() / Util.numCols;        
+        return getWidth() / Util.getCols();        
     }
     
     public int getSquareHeight() {
-        return getHeight() / Util.numRows;
+        return getHeight() / Util.getRows();
     }
      class MyKeyAdapter extends KeyAdapter {
         @Override
