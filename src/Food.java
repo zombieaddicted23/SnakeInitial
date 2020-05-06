@@ -39,7 +39,7 @@ public class Food {
     
     
     public void paint(Graphics2D g, int squareWidth, int squareHeight) {
-       Util.drawSquare(g, squareWidth, squareHeight, position.getRow(), position.getCol(), Color.red);
+       Util.drawSquare(g, squareWidth, squareHeight, position.getRow(), position.getCol(), Color.YELLOW);
     }
     
     // Create all the methods you need here

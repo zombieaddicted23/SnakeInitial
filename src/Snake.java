@@ -20,25 +20,37 @@ public class Snake {
     private Direction direction;
     private List<Node> body;
     private int remainingNodesToCreate = 0;
+    private boolean turn;
     
     
     public Snake(int row, int col, int size) { // Initial position of the head of the snake and number of inital nodes
+        turn=false;
         body = new ArrayList<>();
         for(int i=1; i <= size; i++) {
-            body.add(new Node((row), (col) - i));
+           body.add(new Node(Util.numRows/2, Util.numCols/2 - i));
         }
+        direction=Direction.RIGHT;
     }
     public boolean eat(Food food) {
         if (body.get(0).getRow() == food.getPosition().getRow() &&
              body.get(0).getCol() == food.getPosition().getCol() ) {
+            remainingNodesToCreate++;
             return true;
         } else {
             return false;
         }
     }
+
+    public void setTurn(boolean turn) {
+        this.turn = turn;
+    }
     
-    
+    public boolean getTurn() {
+        return turn;
+    }
+ 
     public boolean canMove(int row, int col) {
+        //ajuste chapucero (Cambiar)
        if (row < 0 || col < 0 || 
                 row >= Util.getRows() || col >= Util.getCols()) {            
             return false;
@@ -89,24 +101,24 @@ public class Snake {
     }
     
     public void move() {
-        int row = body.get(0).getRow();
-        int col = body.get(0).getCol();
+       
         switch(direction) {
             case UP:
-                
-                canMove(body.get(0).getRow() - 1, body.get(0).getCol());
+                canMove(body.get(0).getRow(), body.get(0).getCol() - 1);
                 break;
+                
 
             case DOWN:
-               canMove(body.get(0).getRow() + 1, body.get(0).getCol());
+                canMove(body.get(0).getRow(), body.get(0).getCol() + 1);
                 break;
+              
            case LEFT:
-               canMove(body.get(0).getRow(), body.get(0).getCol() - 1);
+               canMove(body.get(0).getRow() - 1, body.get(0).getCol());
                 break;
  
            case RIGHT:
-               canMove(body.get(0).getRow(), body.get(0).getCol() + 1);
-                break;
+               canMove(body.get(0).getRow() + 1, body.get(0).getCol());
+               break;
 
         }
        

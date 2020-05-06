@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.time.Clock;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -38,22 +39,28 @@ public class Board extends JPanel {
         keyAdapter = new MyKeyAdapter();
         addKeyListener(keyAdapter);
         setFocusable(true);
-         myInit();
+        
         snakeTimer = new javax.swing.Timer(200, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                  tick();
             }
         }
-       );
+        );
+        myInit();
     }
     public void tick(){
-        
+        snake.move();
+        check();
+        snake.setTurn(false);
+        System.out.println("");
+        System.out.println("("+food.getPosition().getRow()+","+food.getPosition().getCol()+")");
+        repaint();
     }
     private void myInit() {
-        snakeTimer.start();
-        snake = new Snake(getSquareHeight()/2, getSquareWidth()/2, 4);
+        snake = new Snake(getSquareHeight()/2, getSquareWidth()/2, 8);
         food = new Food(snake);
+        snakeTimer.start();
     }
     //To modify or creatre a diferent board
     public Board(int numRows, int numCols) {
@@ -61,9 +68,11 @@ public class Board extends JPanel {
         Util.setCols(numCols);   
     }
     
-    public boolean colideFood() {
-      
-        return false;
+    public void check() {
+      if(snake.eat(food)){
+          food = new Food(snake);  
+      }
+      repaint();  
     }
     
     public void gameOver() {
@@ -73,18 +82,15 @@ public class Board extends JPanel {
     protected void paintComponent(Graphics g)  {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-         if (snake != null) {
-            snake.paint(g2d, getSquareWidth(), getSquareHeight());
+        if (snake != null) {
+            snake.paint(g, getSquareWidth(), getSquareHeight());
+        }
+        if (food != null) {
+            food.paint(g2d, getSquareWidth(), getSquareHeight());    
         }
            
     }
-    public void paintBoard(Graphics2D g2d) {
-        for (int row = 0; row < Util.getRows(); row++) {
-            for (int col = 0; col <  Util.getCols(); col++) {
-                Util.drawSquare(g2d, getSquareWidth(), getSquareHeight(), col, row, Color.GRAY);
-            }
-        }
-    }
+    
     public int getSquareWidth() {
         return getWidth() / Util.getCols();        
     }
@@ -92,9 +98,12 @@ public class Board extends JPanel {
     public int getSquareHeight() {
         return getHeight() / Util.getRows();
     }
+    
      class MyKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
+            if(!snake.getTurn()){
+                snake.setTurn(true);
             switch(e.getKeyCode()) {
                
                 
@@ -121,6 +130,7 @@ public class Board extends JPanel {
             }
             repaint();
             
+        }
         }
         
     }
