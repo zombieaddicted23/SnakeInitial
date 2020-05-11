@@ -36,6 +36,9 @@ public class Food {
     public Node getPosition(){
         return position;
     }
+    public boolean isSpecial(){
+        return isSpecial;
+    }
     
     
     public void paint(Graphics2D g, int squareWidth, int squareHeight) {

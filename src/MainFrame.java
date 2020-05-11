@@ -26,22 +26,31 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        scoreBoard2 = new ScoreBoard();
+        scoreBoard3 = new ScoreBoard();
+        scoreBoard1 = new ScoreBoard();
+        scoreBoard4 = new ScoreBoard();
         board1 = new Board();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        scoreBoard1.setLayout(new java.awt.BorderLayout());
+        scoreBoard1.add(scoreBoard4, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout board1Layout = new javax.swing.GroupLayout(board1);
         board1.setLayout(board1Layout);
         board1Layout.setHorizontalGroup(
             board1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 649, Short.MAX_VALUE)
         );
         board1Layout.setVerticalGroup(
             board1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        getContentPane().add(board1, java.awt.BorderLayout.CENTER);
+        scoreBoard1.add(board1, java.awt.BorderLayout.PAGE_START);
+
+        getContentPane().add(scoreBoard1, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -83,5 +92,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Board board1;
+    private ScoreBoard scoreBoard1;
+    private ScoreBoard scoreBoard2;
+    private ScoreBoard scoreBoard3;
+    private ScoreBoard scoreBoard4;
     // End of variables declaration//GEN-END:variables
 }

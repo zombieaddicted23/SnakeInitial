@@ -8,19 +8,37 @@
  *
  * @author victoralonso
  */
-public class ScoreBoard extends javax.swing.JPanel {
+public class ScoreBoard extends javax.swing.JPanel  implements ScoreDelegate {
     
     private int score;
-
-    /**
-     * Creates new form ScoreBoard
-     */
+    
     public ScoreBoard() {
         initComponents();
+        score = 0;
+        updateLabel();
     }
     
-    public void incrementScore(int increment) {
-        // Finish this method. And add all you need to the class
+
+    public void increment(boolean special) {
+        if (special) {
+            increment(500);
+        } else {
+            increment(100);
+        }
+    }
+    
+    void increment(int inc) {
+        score += inc;
+        updateLabel();
+    }
+    
+    public void reset() {
+        score = 0;
+        updateLabel();
+    }
+    
+    private void updateLabel() {
+        jLabel1.setText("Score: " + score);
     }
 
     /**
@@ -32,19 +50,30 @@ public class ScoreBoard extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(173, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 39, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

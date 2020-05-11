@@ -34,7 +34,10 @@ public class Snake {
     public boolean eat(Food food) {
         if (body.get(0).getRow() == food.getPosition().getRow() &&
              body.get(0).getCol() == food.getPosition().getCol() ) {
-            remainingNodesToCreate++;
+            if(food.isSpecial()){
+                remainingNodesToCreate++;
+            }
+                remainingNodesToCreate++; 
             return true;
         } else {
             return false;
@@ -50,7 +53,7 @@ public class Snake {
     }
  
     public boolean canMove(int row, int col) {
-        //ajuste chapucero (Cambiar)
+        
        if (row < 0 || col < 0 || 
                 row >= Util.getRows() || col >= Util.getCols()) {            
             return false;
@@ -92,36 +95,45 @@ public class Snake {
         boolean headColor = false;
         for (Node node: body) {
             if(!headColor) {
-                Util.drawSquare((Graphics2D) g, squareWidth, squareHeight, node.getCol(),node.getRow() , Color.green);
+                Util.drawSquare((Graphics2D) g, squareWidth, squareHeight, node.getRow(),node.getCol() , Color.green);
+              
                 headColor = true;
             } else {
-                 Util.drawSquare((Graphics2D) g, squareWidth, squareHeight, node.getCol(),node.getRow() , Color.red);
+                 Util.drawSquare((Graphics2D) g, squareWidth, squareHeight, node.getRow(),node.getCol() , Color.red);
             }
         }
     }
     
-    public void move() {
-       
-        switch(direction) {
+    public boolean move() {
+
+        switch (direction) {
             case UP:
-                canMove(body.get(0).getRow(), body.get(0).getCol() - 1);
-                break;
-                
+                if (!canMove(body.get(0).getRow() - 1, body.get(0).getCol())) {
+                    return false;
+                }
+                return true;
 
             case DOWN:
-                canMove(body.get(0).getRow(), body.get(0).getCol() + 1);
-                break;
-              
-           case LEFT:
-               canMove(body.get(0).getRow() - 1, body.get(0).getCol());
-                break;
- 
-           case RIGHT:
-               canMove(body.get(0).getRow() + 1, body.get(0).getCol());
-               break;
+                if (!canMove(body.get(0).getRow() + 1, body.get(0).getCol())) {
+                    return false;
+                }
+                return true;
+
+            case LEFT:
+                if (!canMove(body.get(0).getRow(), body.get(0).getCol() - 1)) {
+                    return false;
+                }
+                return true;
+
+            case RIGHT:
+                if (!canMove(body.get(0).getRow(), body.get(0).getCol() + 1)) {
+                    return false;
+                }
+                return true;
 
         }
-       
+        return false;
+
     }
     private boolean collidesWithItself() {
         int row = body.get(0).getRow();
