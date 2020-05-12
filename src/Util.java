@@ -12,25 +12,29 @@ import java.awt.*;
  * @author victoralonso
  */
 public class Util {
-    
+
     public static int numRows = 30;
     public static int numCols = 40;
     public static int score = 0;
-    
-    public static void setRows(int rows){
-        numRows=rows;
+
+    public static void setRows(int rows) {
+        numRows = rows;
     }
-    public static void setCols(int cols){
-        numCols=cols;
+
+    public static void setCols(int cols) {
+        numCols = cols;
     }
-    public static int getRows(){
+
+    public static int getRows() {
         return numRows;
     }
-    public static int getCols(){
+
+    public static int getCols() {
         return numCols;
     }
-     public static void drawSquare(Graphics2D g, int squareWidth, 
-                                int squareHeight, int row, int col, Color color) {
+
+    public static void drawSquare(Graphics2D g, int squareWidth,
+            int squareHeight, int row, int col, Color color) {
         int x = col * squareWidth;
         int y = row * squareHeight;
         g.setColor(color);
@@ -41,7 +45,7 @@ public class Util {
         g.setColor(color.darker());
         g.drawLine(x + 1, y + squareHeight - 1, x + squareWidth - 1, y + squareHeight - 1);
         g.drawLine(x + squareWidth - 1, y + squareHeight - 1, x + squareWidth - 1, y + 1);
-  
+
     }
      
     

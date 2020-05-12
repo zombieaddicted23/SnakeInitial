@@ -12,7 +12,10 @@ import java.io.IOException;
  * @author oripa
  */
 public interface ScoreDelegate {
+
     public void incrementInterface(boolean special);
+
     public void reset();
+
     public void checkRecord() throws IOException;
 }

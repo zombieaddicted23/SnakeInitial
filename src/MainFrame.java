@@ -15,6 +15,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        board1.setScoreDelegate(scoreBoard4);
     }
 
     /**

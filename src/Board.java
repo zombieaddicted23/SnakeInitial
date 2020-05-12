@@ -44,16 +44,15 @@ public class Board extends JPanel {
         );
         myInit();
     }
-    
+
     public void setScoreDelegate(ScoreDelegate scoreBoard) {
         this.scoreBoard = scoreBoard;
     }
-    
+
     public Board(ScoreDelegate scoreBoard) {
         this();
         setScoreDelegate(scoreBoard);
     }
-    
 
     public void tick() {
         if (!snake.move()) {
@@ -65,7 +64,6 @@ public class Board extends JPanel {
     }
 
     private void myInit() {
-        setScoreDelegate(scoreBoard);
         deltaTime = 200;
         snake = new Snake(getSquareHeight() / 2, getSquareWidth() / 2, 8);
         food = new Food(snake);
@@ -80,6 +78,7 @@ public class Board extends JPanel {
 
     public void check() {
         if (snake.eat(food)) {
+
             scoreBoard.incrementInterface(food.isSpecial());
             food = new Food(snake);
         }
@@ -148,6 +147,7 @@ public class Board extends JPanel {
 
             }
         }
+
         public void pause() {
 
             if (snakeTimer.isRunning()) {

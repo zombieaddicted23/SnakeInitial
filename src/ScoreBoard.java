@@ -26,11 +26,11 @@ public class ScoreBoard extends javax.swing.JPanel implements ScoreDelegate {
     }
 
     public void incrementInterface(boolean special) {
+
         if (special) {
-            increment(500);
-        } else {
-            increment(100);
+            increment(400);
         }
+        increment(100);
     }
 
     void increment(int inc) {

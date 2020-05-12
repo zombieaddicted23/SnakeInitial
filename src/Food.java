@@ -14,36 +14,38 @@ import java.awt.Graphics2D;
  * @author victoralonso
  */
 public class Food {
+
     private Node position;
     private boolean isSpecial;
-    
+
     public Food(Snake snake) {
-        
-        int specialProb=(int) (Math.random() * 5);
+
+        int specialProb = (int) (Math.random() * 5);
         int row = (int) (Math.random() * Util.getRows());
         int col = (int) (Math.random() * Util.getCols());
-        
-        while(snake.isOnSnake(row, col)){
+
+        while (snake.isOnSnake(row, col)) {
             row = (int) (Math.random() * Util.getRows());
             col = (int) (Math.random() * Util.getCols());
-        } 
-        position= new Node(row, col);
-        if (specialProb==2){
-            isSpecial=true;
+        }
+        position = new Node(row, col);
+        if (specialProb == 2) {
+            isSpecial = true;
         }
 
     }
-    public Node getPosition(){
+
+    public Node getPosition() {
         return position;
     }
-    public boolean isSpecial(){
+
+    public boolean isSpecial() {
         return isSpecial;
     }
-    
-    
+
     public void paint(Graphics2D g, int squareWidth, int squareHeight) {
-       Util.drawSquare(g, squareWidth, squareHeight, position.getRow(), position.getCol(), Color.YELLOW);
+        Util.drawSquare(g, squareWidth, squareHeight, position.getRow(), position.getCol(), Color.YELLOW);
     }
-    
+
     // Create all the methods you need here
 }

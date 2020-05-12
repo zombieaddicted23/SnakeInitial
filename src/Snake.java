@@ -10,34 +10,33 @@ import java.util.List;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author victoralonso
  */
 public class Snake {
-    
+
     private Direction direction;
     private List<Node> body;
     private int remainingNodesToCreate = 0;
     private boolean turn;
-    
-    
+
     public Snake(int row, int col, int size) { // Initial position of the head of the snake and number of inital nodes
-        turn=false;
+        turn = false;
         body = new ArrayList<>();
-        for(int i=1; i <= size; i++) {
-           body.add(new Node(Util.numRows/2, Util.numCols/2 - i));
+        for (int i = 1; i <= size; i++) {
+            body.add(new Node(Util.numRows / 2, Util.numCols / 2 - i));
         }
-        direction=Direction.RIGHT;
+        direction = Direction.RIGHT;
     }
+
     public boolean eat(Food food) {
-        if (body.get(0).getRow() == food.getPosition().getRow() &&
-             body.get(0).getCol() == food.getPosition().getCol() ) {
-            if(food.isSpecial()){
+        if (body.get(0).getRow() == food.getPosition().getRow()
+                && body.get(0).getCol() == food.getPosition().getCol()) {
+            if (food.isSpecial()) {
                 remainingNodesToCreate++;
             }
-                remainingNodesToCreate++; 
+            remainingNodesToCreate++;
             return true;
         } else {
             return false;
@@ -47,26 +46,27 @@ public class Snake {
     public void setTurn(boolean turn) {
         this.turn = turn;
     }
-    
+
     public boolean getTurn() {
         return turn;
     }
- 
+
     public boolean canMove(int row, int col) {
-        
-       if (row < 0 || col < 0 || 
-                row >= Util.getRows() || col >= Util.getCols()) {            
+
+        if (row < 0 || col < 0
+                || row >= Util.getRows() || col >= Util.getCols()) {
             return false;
-        } else { 
+        } else {
             if (collidesWithItself()) {
                 return false;
-            }  else {
+            } else {
                 moveTo(row, col);
                 return true;
             }
         }
     }
-     public boolean isOnSnake(int row, int col) {
+
+    public boolean isOnSnake(int row, int col) {
         for (Node node : body) {
             if (row == node.getRow() && col == node.getCol()) {
                 return true;
@@ -74,36 +74,37 @@ public class Snake {
         }
         return false;
     }
-     
-     private void moveTo(int row, int col) {
+
+    private void moveTo(int row, int col) {
         body.add(0, new Node(row, col));
         if (remainingNodesToCreate == 0) {
             body.remove(body.size() - 1);
         } else {
-            remainingNodesToCreate --;
+            remainingNodesToCreate--;
         }
     }
-     
-     public Direction getDirection() {
+
+    public Direction getDirection() {
         return direction;
     }
+
     public void setDirection(Direction direction) {
         this.direction = direction;
-    }    
-    
+    }
+
     public void paint(Graphics g, int squareWidth, int squareHeight) {
         boolean headColor = false;
-        for (Node node: body) {
-            if(!headColor) {
-                Util.drawSquare((Graphics2D) g, squareWidth, squareHeight, node.getRow(),node.getCol() , Color.green);
-              
+        for (Node node : body) {
+            if (!headColor) {
+                Util.drawSquare((Graphics2D) g, squareWidth, squareHeight, node.getRow(), node.getCol(), Color.green);
+
                 headColor = true;
             } else {
-                 Util.drawSquare((Graphics2D) g, squareWidth, squareHeight, node.getRow(),node.getCol() , Color.red);
+                Util.drawSquare((Graphics2D) g, squareWidth, squareHeight, node.getRow(), node.getCol(), Color.red);
             }
         }
     }
-    
+
     public boolean move() {
 
         switch (direction) {
@@ -135,19 +136,17 @@ public class Snake {
         return false;
 
     }
+
     private boolean collidesWithItself() {
         int row = body.get(0).getRow();
         int col = body.get(0).getCol();
         for (int i = 1; i < body.size() - 1; i++) {
-            if (row == body.get(i).getRow() && 
-                col == body.get(i).getCol()) {
+            if (row == body.get(i).getRow()
+                    && col == body.get(i).getCol()) {
                 return true;
             }
         }
         return false;
     }
-    
-   
-    
-    
+
 }
