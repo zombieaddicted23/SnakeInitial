@@ -24,6 +24,7 @@ public class Board extends JPanel {
     private Timer snakeTimer;
     private int deltaTime;
     private MyKeyAdapter keyAdapter;
+    private ScoreDelegate scoreBoard;
 
     /**
      * Creates new form Board
@@ -34,7 +35,7 @@ public class Board extends JPanel {
         addKeyListener(keyAdapter);
         setFocusable(true);
 
-        snakeTimer = new javax.swing.Timer(150, new ActionListener() {
+        snakeTimer = new javax.swing.Timer(200, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 tick();
@@ -43,6 +44,16 @@ public class Board extends JPanel {
         );
         myInit();
     }
+    
+    public void setScoreDelegate(ScoreDelegate scoreBoard) {
+        this.scoreBoard = scoreBoard;
+    }
+    
+    public Board(ScoreDelegate scoreBoard) {
+        this();
+        setScoreDelegate(scoreBoard);
+    }
+    
 
     public void tick() {
         if (!snake.move()) {
@@ -54,6 +65,7 @@ public class Board extends JPanel {
     }
 
     private void myInit() {
+        setScoreDelegate(scoreBoard);
         deltaTime = 200;
         snake = new Snake(getSquareHeight() / 2, getSquareWidth() / 2, 8);
         food = new Food(snake);
@@ -68,13 +80,14 @@ public class Board extends JPanel {
 
     public void check() {
         if (snake.eat(food)) {
-            ScoreDelegate.increment(food.isSpecial());
+            scoreBoard.incrementInterface(food.isSpecial());
             food = new Food(snake);
         }
         repaint();
     }
 
     public void gameOver() {
+        snakeTimer.stop();
         System.out.println("GameOver");
     }
 
@@ -127,9 +140,20 @@ public class Board extends JPanel {
                             snake.setDirection(Direction.DOWN);
                         }
                         break;
+                    case KeyEvent.VK_P:
+                        pause();
+                        break;
                 }
                 repaint();
 
+            }
+        }
+        public void pause() {
+
+            if (snakeTimer.isRunning()) {
+                snakeTimer.stop();
+            } else {
+                snakeTimer.start();
             }
         }
 

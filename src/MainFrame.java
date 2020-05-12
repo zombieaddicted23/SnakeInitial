@@ -28,9 +28,12 @@ public class MainFrame extends javax.swing.JFrame {
 
         scoreBoard2 = new ScoreBoard();
         scoreBoard3 = new ScoreBoard();
+        jButton1 = new javax.swing.JButton();
         scoreBoard1 = new ScoreBoard();
         scoreBoard4 = new ScoreBoard();
         board1 = new Board();
+
+        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,7 +44,7 @@ public class MainFrame extends javax.swing.JFrame {
         board1.setLayout(board1Layout);
         board1Layout.setHorizontalGroup(
             board1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 649, Short.MAX_VALUE)
+            .addGap(0, 321, Short.MAX_VALUE)
         );
         board1Layout.setVerticalGroup(
             board1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,6 +95,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Board board1;
+    private javax.swing.JButton jButton1;
     private ScoreBoard scoreBoard1;
     private ScoreBoard scoreBoard2;
     private ScoreBoard scoreBoard3;

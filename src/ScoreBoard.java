@@ -1,3 +1,10 @@
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,37 +15,69 @@
  *
  * @author victoralonso
  */
-public class ScoreBoard extends javax.swing.JPanel  implements ScoreDelegate {
-    
+public class ScoreBoard extends javax.swing.JPanel implements ScoreDelegate {
+
     private int score;
-    
+
     public ScoreBoard() {
         initComponents();
         score = 0;
         updateLabel();
     }
-    
 
-    public void increment(boolean special) {
+    public void incrementInterface(boolean special) {
         if (special) {
             increment(500);
         } else {
             increment(100);
         }
     }
-    
+
     void increment(int inc) {
         score += inc;
         updateLabel();
     }
-    
+
     public void reset() {
         score = 0;
         updateLabel();
     }
-    
+
     private void updateLabel() {
         jLabel1.setText("Score: " + score);
+    }
+
+    public void checkRecord() throws IOException {
+        File scoreFile = new File("scooreRecord.txt");
+        scoreFile.createNewFile();
+        int oldScore = getRecord(scoreFile);
+        if (oldScore < score) {
+            writeRecord(scoreFile, score);
+        }
+    }
+
+    private int getRecord(File scoreFile) throws FileNotFoundException, IOException {
+
+        FileReader input = new FileReader(scoreFile);
+        int scoreRecord = 0;
+        try {
+            scoreRecord = input.read();
+        } finally {
+            input.close();
+        }
+        return scoreRecord;
+    }
+
+    private void writeRecord(File scoreFile, int newScore) throws IOException {
+        scoreFile.delete();
+        scoreFile.createNewFile();
+        FileWriter writer = new FileWriter(scoreFile);
+        try {
+            writer.write(newScore);
+        } finally {
+            writer.close();
+        }
+
     }
 
     /**
