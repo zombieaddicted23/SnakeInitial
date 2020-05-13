@@ -47,16 +47,16 @@ public class ScoreBoard extends javax.swing.JPanel implements ScoreDelegate {
         jLabel1.setText("Score: " + score);
     }
 
-    public void checkRecord() throws IOException {
+    public void checkRecords() throws IOException {
         File scoreFile = new File("scooreRecord.txt");
         scoreFile.createNewFile();
-        int oldScore = getRecord(scoreFile);
+        int oldScore = getRecords(scoreFile);
         if (oldScore < score) {
-            writeRecord(scoreFile, score);
+            writeRecords(scoreFile, score);
         }
     }
 
-    private int getRecord(File scoreFile) throws FileNotFoundException, IOException {
+    private int getRecords(File scoreFile) throws FileNotFoundException, IOException {
 
         FileReader input = new FileReader(scoreFile);
         int scoreRecord = 0;
@@ -68,7 +68,7 @@ public class ScoreBoard extends javax.swing.JPanel implements ScoreDelegate {
         return scoreRecord;
     }
 
-    private void writeRecord(File scoreFile, int newScore) throws IOException {
+    private void writeRecords(File scoreFile, int newScore) throws IOException {
         scoreFile.delete();
         scoreFile.createNewFile();
         FileWriter writer = new FileWriter(scoreFile);

@@ -17,5 +17,5 @@ public interface ScoreDelegate {
 
     public void reset();
 
-    public void checkRecord() throws IOException;
+    public void checkRecords() throws IOException;
 }
