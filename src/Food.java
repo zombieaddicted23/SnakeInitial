@@ -17,6 +17,7 @@ public class Food {
 
     private Node position;
     private boolean isSpecial;
+    private boolean isSpecia2;
 
     public Food(Snake snake) {
 
@@ -31,6 +32,11 @@ public class Food {
         position = new Node(row, col);
         if (specialProb == 2) {
             isSpecial = true;
+        }else{
+            specialProb = (int) (Math.random() * 10);
+        }
+        if (specialProb == 4){
+            isSpecia2=true;
         }
 
     }
@@ -42,9 +48,18 @@ public class Food {
     public boolean isSpecial() {
         return isSpecial;
     }
+     public boolean isSpecial2() {
+        return isSpecia2;
+    }
 
     public void paint(Graphics2D g, int squareWidth, int squareHeight) {
-        Util.drawSquare(g, squareWidth, squareHeight, position.getRow(), position.getCol(), Color.YELLOW);
+        if(isSpecial){
+            Util.drawSquare(g, squareWidth, squareHeight, position.getRow(), position.getCol(), Color.BLUE);
+        }else if(isSpecia2){
+            Util.drawSquare(g, squareWidth, squareHeight, position.getRow(), position.getCol(), Color.DARK_GRAY);
+        }else{
+            Util.drawSquare(g, squareWidth, squareHeight, position.getRow(), position.getCol(), Color.YELLOW);
+        }   
     }
 
     // Create all the methods you need here

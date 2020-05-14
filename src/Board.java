@@ -25,6 +25,8 @@ public class Board extends JPanel {
     private int deltaTime;
     private MyKeyAdapter keyAdapter;
     private ScoreDelegate scoreBoard;
+    private Wall wall;
+    private int  foodTimerFake;
 
     /**
      * Creates new form Board
@@ -44,7 +46,9 @@ public class Board extends JPanel {
         );
         myInit();
     }
-
+    public Food getfood(){
+        return food;
+    }
     public void setScoreDelegate(ScoreDelegate scoreBoard) {
         this.scoreBoard = scoreBoard;
     }
@@ -55,7 +59,7 @@ public class Board extends JPanel {
     }
 
     public void tick() {
-        if (!snake.move()) {
+        if (!snake.move(wall)) {
             gameOver();
         }
         check();
@@ -65,9 +69,12 @@ public class Board extends JPanel {
 
     private void myInit() {
         deltaTime = 200;
-        snake = new Snake(getSquareHeight() / 2, getSquareWidth() / 2, 8);
+        snake = new Snake(getSquareHeight() / 2, getSquareWidth() / 2, 10);
         food = new Food(snake);
+        foodTimerFake=0;
+        wall=new Wall();
         snakeTimer.start();
+       
     }
 
     //To modify or creatre a diferent board
@@ -77,10 +84,17 @@ public class Board extends JPanel {
     }
 
     public void check() {
+        
         if (snake.eat(food)) {
-
-            scoreBoard.incrementInterface(food.isSpecial());
+            scoreBoard.incrementInterface(food.isSpecial() || food.isSpecial2());
             food = new Food(snake);
+        } 
+        if (foodTimerFake==10){
+            foodTimerFake=0;
+            wall.addWall(food.getPosition().getRow(),food.getPosition().getRow(),4, snake);
+            food = new Food(snake);
+        }else{
+            foodTimerFake++;
         }
         repaint();
     }
@@ -98,9 +112,11 @@ public class Board extends JPanel {
             snake.paint(g, getSquareWidth(), getSquareHeight());
         }
         if (food != null) {
-            food.paint(g2d, getSquareWidth(), getSquareHeight());
+            food.paint((Graphics2D) g, getSquareWidth(), getSquareHeight());
         }
-
+        if(wall!=null){
+            wall.paint(g, WIDTH, HEIGHT);
+        }
     }
 
     public int getSquareWidth() {
@@ -137,9 +153,12 @@ public class Board extends JPanel {
                     case KeyEvent.VK_DOWN:
                         if /*(canMove(Directions.LEFT) &&*/ (snake.getDirection() != Direction.UP) {
                             snake.setDirection(Direction.DOWN);
+                            
                         }
                         break;
                     case KeyEvent.VK_P:
+                        System.out.println("here");
+                        
                         pause();
                         break;
                 }
@@ -149,10 +168,12 @@ public class Board extends JPanel {
         }
 
         public void pause() {
-
+            
             if (snakeTimer.isRunning()) {
+                System.out.println("Pause on");
                 snakeTimer.stop();
             } else {
+                System.out.println("Pause off");
                 snakeTimer.start();
             }
         }
